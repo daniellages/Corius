@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import json
+import terminal
 
 with open("secret.json") as json_file:
     secret = json.load(json_file)
@@ -22,7 +23,7 @@ async def on_command_error(ctx, error):
 @client.event
 async def on_message(message):
     if message.author.id == secret["authorized_id"] and message.channel.id == secret["channel_id"]:
-        await message.channel.send(str(message.author.id))
+        await message.channel.send(terminal.send_terminal(message.content))
 
 # Bot Token
 try:
